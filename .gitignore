@@ -1,4 +1,9 @@
-.vscode/
+/build
+/obj
+
+/.vscode
+*.sublime-project
+*.sublime-workspace
 
 ## from https://github.com/github/gitignore/blob/main/C++.gitignore
 

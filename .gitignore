@@ -5,6 +5,8 @@
 *.sublime-project
 *.sublime-workspace
 
+/include/glm
+
 ## from https://github.com/github/gitignore/blob/main/C++.gitignore
 
 # Prerequisites

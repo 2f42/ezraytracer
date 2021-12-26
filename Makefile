@@ -13,7 +13,7 @@ OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)
-INC_FLAGS ?= -Iinclude # $(addprefix -I,$(INC_DIRS))
+INC_FLAGS ?= -Iinclude -Ilib # $(addprefix -I,$(INC_DIRS))
 
 CPPFLAGS ?= $(INC_FLAGS) -MMD -MP -Wall -Wextra -pedantic
 CXXFLAGS ?= -std=c++11

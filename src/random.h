@@ -7,7 +7,7 @@
 extern "C" {
 #endif
 
-    void random_seed (uint64_t seed);
+    void random_seed (uint64_t seed, int jumps);
     uint64_t ranl (void);
     double ranf (void);
 

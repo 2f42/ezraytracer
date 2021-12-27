@@ -1,7 +1,7 @@
 # taken and adapted from https://spin.atomicobject.com/2016/08/26/makefile-c-projects/
 
-CC ?= clang
-CXX ?= clang++
+CC ?= gcc
+CXX ?= g++
 
 TARGET_EXEC ?= main
 
@@ -15,12 +15,13 @@ DEPS := $(OBJS:.o=.d)
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)
 INC_FLAGS ?= -Iinclude -Ilib # $(addprefix -I,$(INC_DIRS))
 
-CPPFLAGS ?= $(INC_FLAGS) -MMD -MP -Wall -Wextra -pedantic
-CXXFLAGS ?= -std=c++11
-CFLAGS ?= -std=c99
+CPPFLAGS ?= $(INC_FLAGS) -MMD -MP -Wall -Wextra -pedantic -fopenmp
+CXXFLAGS ?= -std=c++17
+CFLAGS ?= -std=c17
+LDFLAGS ?= -fopenmp
 
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
-	$(CC) $(OBJS) -o $@ $(LDFLAGS)
+	$(CXX) $(OBJS) -o $@ $(LDFLAGS)
 
 # assembly
 $(BUILD_DIR)/%.s.o: %.s

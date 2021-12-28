@@ -67,7 +67,7 @@ void jump(void) {
     s[3] = s3;
 }
 
-void random_seed(uint64_t seed, int jumps) {
+void random_seed(const uint64_t seed, const int jumps) {
     x = seed;
     s[0] = splitmix64();
     s[1] = splitmix64();

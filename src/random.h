@@ -1,5 +1,5 @@
-#ifndef RANDOM_H_
-#define RANDOM_H_
+#ifndef RAYTRACER_RANDOM_H_
+#define RAYTRACER_RANDOM_H_
 
 #include <stdint.h>
 

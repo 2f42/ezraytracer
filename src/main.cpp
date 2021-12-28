@@ -1,6 +1,8 @@
-#include <glm/glm.hpp>
 #include <stdio.h>
 #include <omp.h>
+
+#include <glm/glm.hpp>
+
 #include "random.h"
 
 int main(void) {

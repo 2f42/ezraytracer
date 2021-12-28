@@ -1,5 +1,4 @@
-#ifndef RAYTRACER_RANDOM_H_
-#define RAYTRACER_RANDOM_H_
+#pragma once
 
 #include <stdint.h>
 
@@ -13,6 +12,4 @@ double ranf (void);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif

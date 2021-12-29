@@ -83,7 +83,7 @@ glm::vec3 get_pixel(const float x, const float y) {
     const auto CAMERA = glm::vec3(0, 0, -5.f);
     ray r = {CAMERA, glm::normalize(glm::vec3(x, y, 0) - CAMERA)};
 
-    return glm::clamp(sample(r, 2), glm::vec3(0), glm::vec3(1));
+    return glm::clamp(sample(r, 8), glm::vec3(0), glm::vec3(1));
 }
 
 }

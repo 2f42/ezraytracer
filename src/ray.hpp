@@ -10,10 +10,11 @@ typedef struct {
 } ray;
 
 typedef struct {
+    bool hit;
     glm::vec3 position;
     glm::vec3 normal;
     glm::vec3 incident;
     float distance;
-} hit;
+} hit_info;
 
 }

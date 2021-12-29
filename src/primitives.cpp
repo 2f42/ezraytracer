@@ -13,7 +13,7 @@ namespace rt {
 //      https://www.iquilezles.org/www/articles/intersectors/intersectors.htm
 
 bool intersect_plane(const ray in, hit_info &hit, const glm::vec3 n, const glm::vec3 p) {
-    float dist = glm::dot(in.origin, p) / glm::dot(in.direction, n);
+    float dist = glm::dot(p-in.origin, n) / glm::dot(in.direction, n);
     if (dist < 0.0f) return false;
     hit = {in.origin + in.direction * dist, n, in.direction, dist};
     return true;

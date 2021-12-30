@@ -15,10 +15,10 @@ DEPS := $(OBJS:.o=.d)
 INC_DIRS := $(shell find $(SRC_DIRS) -type d)
 INC_FLAGS ?= -Iinclude -Ilib # $(addprefix -I,$(INC_DIRS))
 
-CPPFLAGS ?= $(INC_FLAGS) -MMD -MP -Wall -Wextra -pedantic -fopenmp
+CPPFLAGS ?= $(INC_FLAGS) -MMD -MP -Wall -Wextra -pedantic -fopenmp -pg -O3
 CXXFLAGS ?= -std=c++17
 CFLAGS ?= -std=c17
-LDFLAGS ?= -fopenmp
+LDFLAGS ?= -fopenmp -pg
 
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
 	$(CXX) $(OBJS) -o $@ $(LDFLAGS)

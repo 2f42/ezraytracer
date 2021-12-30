@@ -84,12 +84,12 @@ glm::vec3 sample(const float x, const float y) {
     
     glm::vec3 col = glm::vec3(0);
 
-    for (int i=0; i<16; i++) {
+    for (int i=0; i<64; i++) {
         ray r = {CAMERA, glm::normalize(glm::vec3((x + ranf()/512.f) * .035f, (y + ranf()/512.f) * .035f, .12f))};  // 35mm sensor, 120mm focal length
         col += raycast(r, 8);
     }
 
-    col /= 16.f;
+    col /= 64.f;
     col = glm::pow(col, glm::vec3(.45f)); // gamma correction
     return glm::clamp(col, glm::vec3(0), glm::vec3(1));
 }

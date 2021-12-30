@@ -1,7 +1,5 @@
 #include "primitives.hpp"
 
-#include <algorithm>
-
 #include <glm/vec3.hpp>
 #include <glm/geometric.hpp>
 

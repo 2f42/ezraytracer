@@ -29,12 +29,11 @@ int main(void) {
         }
     }
 
-    FILE *fptr = fopen("out.ppm", "wb");
-    const char *h = "P6 512 512 255\n";
-    fwrite(h, 1, 15, fptr);
-    fwrite(image, 1, 512 * 512 * 3, fptr);
+    std::ofstream f;
+    f.open("out.ppm", std::ios::out | std::ios::trunc | std::ios::binary);
+    f << "P6 512 512 255\n";
+    f << image;
     free(image);
-
-    fclose(fptr);
+    f.close();
     return 0;
 }

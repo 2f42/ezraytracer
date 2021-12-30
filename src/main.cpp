@@ -12,7 +12,7 @@ int main(void) {
     char *b = buff;
     do {
         --i;
-        glm::vec3 col = rt::get_pixel((i % 512) / 512.f - .5f,
+        glm::vec3 col = rt::sample((i % 512) / 512.f - .5f,
                                       (i / 512) / 512.f - .5f);
         *b++ = (unsigned char) (col.x*255);
         *b++ = (unsigned char) (col.y*255);

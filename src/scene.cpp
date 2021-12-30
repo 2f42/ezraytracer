@@ -8,11 +8,12 @@
 #include "ray.hpp"
 #include "material.hpp"
 #include "primitives.hpp"
+#include "random.h"
 
 namespace rt {
 
 const auto SUN_DIR = glm::vec3(.67f, .33f, -.67f);
-const auto SUN_COL = glm::vec3(1.f, 1.f, 1.f);
+const auto SUN_COL = glm::vec3(1.f, 1.f, .8f);
 const auto SKY_COL = glm::vec3(.529f, .808f, .922f);
 
 material sky(const ray in) {
@@ -72,16 +73,25 @@ glm::vec3 raycast(const ray in, const int depth) {
         );
     }
     
-    ray r = {hit.position, glm::normalize(glm::reflect(hit.incident, hit.normal))};
+    //ray r = {hit.position, glm::normalize(glm::reflect(hit.incident, hit.normal))};
+    ray r = bsdf(hit, mat);
 
     return mat.diffuse * (dcol + raycast(r, depth-1)) + mat.emission;
 }
 
 glm::vec3 sample(const float x, const float y) {
-    const auto CAMERA = glm::vec3(0, 0, -5.f);
-    ray r = {CAMERA, glm::normalize(glm::vec3(x, y, 0) - CAMERA)};
+    const auto CAMERA = glm::vec3(0, 0, 0);
+    
+    glm::vec3 col = glm::vec3(0);
 
-    return glm::clamp(raycast(r, 8), glm::vec3(0), glm::vec3(1));
+    for (int i=0; i<16; i++) {
+        ray r = {CAMERA, glm::normalize(glm::vec3((x + ranf()/512.f) * .035f, (y + ranf()/512.f) * .035f, .12f))};  // 35mm sensor, 120mm focal length
+        col += raycast(r, 8);
+    }
+
+    col /= 16.f;
+    col = glm::pow(col, glm::vec3(.45f)); // gamma correction
+    return glm::clamp(col, glm::vec3(0), glm::vec3(1));
 }
 
 }

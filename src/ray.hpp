@@ -7,6 +7,10 @@ namespace rt {
 typedef struct {
     glm::vec3 origin;
     glm::vec3 direction;
+
+    constexpr glm::vec3 at(const float t) const {
+        return origin + direction * t;
+    }
 } ray;
 
 typedef struct {
@@ -15,8 +19,5 @@ typedef struct {
     glm::vec3 incident;
     float distance;
 } hit_info;
-
-glm::vec3 lambertian_reflect(const glm::vec3 normal);
-glm::vec3 glossy_reflect(const glm::vec3 incident, const glm::vec3 normal, const float gloss);
 
 }

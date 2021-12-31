@@ -12,14 +12,14 @@
 
 namespace rt {
 
-const auto SUN_DIR = glm::vec3(.67f, .33f, -.67f);
+const auto SUN_DIR = glm::vec3(.577f, .577f, -.577f);
 const auto SUN_COL = glm::vec3(1.f, 1.f, .8f);
 const auto SKY_COL = glm::vec3(.529f, .808f, .922f);
 
 material sky(const ray in) {
     float t = glm::dot(in.direction, SUN_DIR);
-    t = glm::smoothstep(0.9f, 0.91f, t);
-    return {glm::vec3(0), glm::mix(SKY_COL, SUN_COL, t)};
+    t = glm::smoothstep(0.95f, 0.955f, t);
+    return emission_shader(glm::mix(SKY_COL, SUN_COL, t));
 }
 
 bool shadow_ray(const glm::vec3 pos) {
@@ -36,7 +36,7 @@ bool intersect_scene(const ray in, hit_info &hit, material &mat) {
     if (intersect_plane(in, t_hit, glm::vec3(0, 1, 0), glm::vec3(0, -.5, 0))) {
         if (t_hit.distance > 0.001f && t_hit.distance < hit.distance) {
             hit = t_hit;
-            mat = {glm::vec3(.5f), glm::vec3(0)};
+            mat = {glm::vec3(.5f), glm::vec3(1.f), glm::vec3(0), 0.f, 0.f};
             intersects_scene = true;
         }
     }
@@ -44,7 +44,7 @@ bool intersect_scene(const ray in, hit_info &hit, material &mat) {
     if (intersect_sphere(in, t_hit, glm::vec3(0,-.3,8.), .2)) {
         if (t_hit.distance > 0.001f && t_hit.distance < hit.distance) {
             hit = t_hit;
-            mat = {glm::vec3(.75f), glm::vec3(0)};
+            mat = {glm::vec3(.7f), glm::vec3(1.f), glm::vec3(0), 0.f, 0.f};
             intersects_scene = true;
         }
     }
@@ -74,7 +74,7 @@ glm::vec3 raycast(const ray in, const int depth) {
     }
     
     //ray r = {hit.position, glm::normalize(glm::reflect(hit.incident, hit.normal))};
-    ray r = bsdf(hit, mat);
+    ray r = bsdf(hit, mat).out;
 
     return mat.diffuse * (dcol + raycast(r, depth-1)) + mat.emission;
 }
@@ -84,12 +84,12 @@ glm::vec3 sample(const float x, const float y) {
     
     glm::vec3 col = glm::vec3(0);
 
-    for (int i=0; i<64; i++) {
+    for (int i=0; i<16; i++) {
         ray r = {CAMERA, glm::normalize(glm::vec3((x + ranf()/512.f) * .035f, (y + ranf()/512.f) * .035f, .12f))};  // 35mm sensor, 120mm focal length
         col += raycast(r, 8);
     }
 
-    col /= 64.f;
+    col /= 16.f;
     col = glm::pow(col, glm::vec3(.45f)); // gamma correction
     return glm::clamp(col, glm::vec3(0), glm::vec3(1));
 }
